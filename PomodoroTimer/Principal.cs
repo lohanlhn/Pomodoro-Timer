@@ -32,32 +32,29 @@ namespace PomodoroTimer
             }
             else
             {
-                if (tmrAtivo.Enabled == false) 
+                if (tmrAtivo.Enabled == false)
                     tmrAtivo.Enabled = true;
-                else 
+                else
                     tmrAtivo.Enabled = false;
             }
         }
 
         private void tmrAtivo_Tick(object sender, EventArgs e)
         {
-            if (!_descanco)
-            {
-                if (prgPrincipal.Value == prgPrincipal.Maximum)
-                {
-                    tmrAtivo.Enabled = false;
-                    
-                    _ciclo++;
-                    VerificarCiclo();
-                }
-
+            if (!_descanco && prgPrincipal.Value != prgPrincipal.Maximum)
+            {                
                 prgPrincipal.Value += 1;
                 _minutosRestantes = (70 - prgPrincipal.Value) / 60;
                 _segundosRestantes = (70 - prgPrincipal.Value) % 60;
 
                 lblTemporizador.Text = _minutosRestantes.ToString("D2") + ":" + _segundosRestantes.ToString("D2");
+            }
+            else
+            {
+                _ciclo++;
+                tmrAtivo.Enabled = false;
 
-                
+                VerificarCiclo();
             }
         }
 
@@ -66,56 +63,67 @@ namespace PomodoroTimer
             switch (_ciclo)
             {
                 case 1:
-                    pnlMarcador1.ForeColor = Color.Red;                    
+                    pnlMarcador1.BackColor = Color.Red;
                     PrepararTempoDeDescanco();
                     break;
                 case 2:
-                    pnlMarcador2.ForeColor = Color.Red;
+                    pnlMarcador2.BackColor = Color.Red;
                     PrepararTempoDeDescanco();
                     break;
                 case 3:
-                    pnlMarcador3.ForeColor = Color.Red;
+                    pnlMarcador3.BackColor = Color.Red;
                     PrepararTempoDeDescanco();
                     break;
                 case 4:
-                    pnlMarcador4.ForeColor = Color.Red;
+                    pnlMarcador4.BackColor = Color.Red;
                     PrepararTempoDeDescanco();
+                    break;
+                case 5:
+                    FinalizarCiclo();
                     break;
                 default:
                     break;
             }
         }
 
+        private void FinalizarCiclo()
+        {
+            _ciclo = 0;
+            prgPrincipal.Value = 0;
+
+            MessageBox.Show("Ciclos de atividade finalizados", "Aviso");
+        }
+
         private void PrepararTempoDeDescanco()
         {
             SystemSounds.Beep.Play();
             MessageBox.Show("Inicie o tempo de descanço", "Aviso");
-            
+
             _descanco = true;
-            
+
+
             btnPlayPauseDescanso.Visible = true;
 
             prgPrincipal.Value = 0;
             prgPrincipal.Maximum = 80;
 
-            lblTemporizador.ForeColor = Color.DodgerBlue;            
+            lblTemporizador.ForeColor = Color.DodgerBlue;
         }
 
         private void tmrDescanso_Tick(object sender, EventArgs e)
         {
-            if (_descanco)
+            if (_descanco && prgPrincipal.Value != prgPrincipal.Maximum)
             {
                 prgPrincipal.Value += 1;
                 _minutosRestantes = (80 - prgPrincipal.Value) / 60;
                 _segundosRestantes = (80 - prgPrincipal.Value) % 60;
 
-                lblTemporizador.Text = _minutosRestantes.ToString("D2") + ":" + _segundosRestantes.ToString("D2");
-
-                if (prgPrincipal.Value == prgPrincipal.Maximum)
-                {                                        
-                    tmrDescanso.Enabled = false;
-                    PrepararTempoDeAtividade();
-                }
+                lblTemporizador.Text = _minutosRestantes.ToString("D2") + ":" + _segundosRestantes.ToString("D2");                
+            }
+            else
+            {
+                tmrDescanso.Enabled = false;
+                PrepararTempoDeAtividade();
             }
         }
 

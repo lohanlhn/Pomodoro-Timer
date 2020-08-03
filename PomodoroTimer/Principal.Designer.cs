@@ -83,6 +83,7 @@
             // 
             // pnlPrincipal
             // 
+            this.pnlPrincipal.BackColor = System.Drawing.Color.White;
             this.pnlPrincipal.Controls.Add(this.btnPlayPauseDescanso);
             this.pnlPrincipal.Controls.Add(this.pnlMarcador4);
             this.pnlPrincipal.Controls.Add(this.pnlMarcador3);
@@ -99,6 +100,7 @@
             // 
             // btnPlayPauseDescanso
             // 
+            this.btnPlayPauseDescanso.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPlayPauseDescanso.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayPauseDescanso.Image")));
             this.btnPlayPauseDescanso.Location = new System.Drawing.Point(145, 372);
             this.btnPlayPauseDescanso.Name = "btnPlayPauseDescanso";
@@ -156,8 +158,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 450);
             this.Controls.Add(this.pnlPrincipal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Principal";
-            this.Text = "Principal";
+            this.Text = "Pomodoro Timer";
             ((System.ComponentModel.ISupportInitialize)(this.btnPlayPause)).EndInit();
             this.pnlPrincipal.ResumeLayout(false);
             this.pnlPrincipal.PerformLayout();
