@@ -44,8 +44,8 @@ namespace PomodoroTimer
             if (!_descanco && prgPrincipal.Value != prgPrincipal.Maximum)
             {                
                 prgPrincipal.Value += 1;
-                _minutosRestantes = (70 - prgPrincipal.Value) / 60;
-                _segundosRestantes = (70 - prgPrincipal.Value) % 60;
+                _minutosRestantes = (1500 - prgPrincipal.Value) / 60;
+                _segundosRestantes = (1500 - prgPrincipal.Value) % 60;
 
                 lblTemporizador.Text = _minutosRestantes.ToString("D2") + ":" + _segundosRestantes.ToString("D2");
             }
@@ -105,7 +105,7 @@ namespace PomodoroTimer
             btnPlayPauseDescanso.Visible = true;
 
             prgPrincipal.Value = 0;
-            prgPrincipal.Maximum = 80;
+            prgPrincipal.Maximum = 30;
 
             lblTemporizador.ForeColor = Color.DodgerBlue;
         }
@@ -115,8 +115,8 @@ namespace PomodoroTimer
             if (_descanco && prgPrincipal.Value != prgPrincipal.Maximum)
             {
                 prgPrincipal.Value += 1;
-                _minutosRestantes = (80 - prgPrincipal.Value) / 60;
-                _segundosRestantes = (80 - prgPrincipal.Value) % 60;
+                _minutosRestantes = (30 - prgPrincipal.Value) / 60;
+                _segundosRestantes = (30 - prgPrincipal.Value) % 60;
 
                 lblTemporizador.Text = _minutosRestantes.ToString("D2") + ":" + _segundosRestantes.ToString("D2");                
             }
@@ -137,7 +137,7 @@ namespace PomodoroTimer
             btnPlayPauseDescanso.Visible = false;
 
             prgPrincipal.Value = 0;
-            prgPrincipal.Maximum = 70;
+            prgPrincipal.Maximum = 1500;
 
             lblTemporizador.ForeColor = Color.Red;
         }
